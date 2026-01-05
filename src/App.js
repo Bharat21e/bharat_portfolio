@@ -152,10 +152,26 @@ function App() {
       <section id="project">
         <h2>Projects</h2>
         <ul>
-          <li><b>Crop Disease Detection App</b> – React, Node, Python, CNN</li>
-          <li><b>Online Table Booking System</b> – JSP, Servlet, MySQL</li>
-          <li><b>Online Appointment Booking</b> – Next.js, Clerk, MySQL</li>
-          <li><b>Student Information System</b> – PHP, Laravel, MySQL</li>
+          <li className="crops">
+            <a
+              href="https://crops-dieasese-detection-app.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-link"
+            >
+              <b>Crop Disease Detection App</b> – React, Node, Python, CNN
+            </a>
+          </li>
+          <li><b>Online Table Booking System</b> – JSP, Servlet, MySQl
+            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
+          </li>
+          <li><b>Online Appointment Booking</b> – Next.js, Clerk, MySQL
+            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
+          </li>
+          <li><b>Student Information System</b> – PHP, Laravel, MySQL
+            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
+
+          </li>
         </ul>
       </section>
 
