@@ -168,10 +168,15 @@ function App() {
           <li><b>Online Appointment Booking</b> – Next.js, Clerk, MySQL
             <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
           </li>
-          <li><b>Student Information System</b> – PHP, Laravel, MySQL
-            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
-
+          <li className="crops">
+            <a href="https://github.com/Bharat21e/laravel_feedback_Application" target="_blank" className="project-link"
+            >
+              <b>Feedback submission</b> – PHP, Laravel, MySQL
+            </a>
+          
           </li>
+
+
         </ul>
       </section>
 
