@@ -2,12 +2,14 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Typed from "typed.js";
 import "./index.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const lenisRef = useRef(null);
+  const typedRef = useRef(null);
 
   useEffect(() => {
     /* -------- LENIS -------- */
@@ -85,7 +87,17 @@ function App() {
       }
     );
 
+    /* -------- TYPED.JS (FIXED) -------- */
+    const typed = new Typed(typedRef.current, {
+      strings: ["Full Stack Developer", "React Developer", 'next.js Developer'],
+      typeSpeed: 60,
+      backSpeed: 40,
+      backDelay: 1000,
+      loop: true,
+    });
+
     return () => {
+      typed.destroy();
       lenis.destroy();
       ScrollTrigger.killAll();
     };
@@ -111,8 +123,7 @@ function App() {
           </h1>
 
           <p className="hero-subtitle">
-            Full-Stack Developer & Computer Science Engineer building modern,
-            scalable web applications.
+            I am a <span ref={typedRef} className="typed-text"></span>
           </p>
 
           <div className="hero-actions">
@@ -121,11 +132,22 @@ function App() {
             </button>
 
             <a
-              href="mailto:mahajanbharat175@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn outline"
             >
               Contact Me
             </a>
+
+            <a
+              href="https://wa.me/918817492898"
+              target="_blank"
+              className="btn outline"
+            >
+              WhatsApp Me
+            </a>
+
           </div>
         </div>
 
@@ -162,21 +184,27 @@ function App() {
               <b>Crop Disease Detection App</b> – React, Node, Python, CNN
             </a>
           </li>
-          <li><b>Online Table Booking System</b> – JSP, Servlet, MySQl
-            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
+
+          <li>
+            <b>Online Table Booking System</b> – JSP, Servlet, MySQL
+            <marquee>this link is under development</marquee>
           </li>
-          <li><b>Online Appointment Booking</b> – Next.js, Clerk, MySQL
-            <marquee behavior="scroll" direction="left">this links currently devlopemnt work so can not work </marquee>
+
+          <li>
+            <b>Online Appointment Booking</b> – Next.js, Clerk, MySQL
+            <marquee>this link is under development</marquee>
           </li>
+
           <li className="crops">
-            <a href="https://github.com/Bharat21e/laravel_feedback_Application" target="_blank" className="project-link"
+            <a
+              href="https://github.com/Bharat21e/laravel_feedback_Application"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-link"
             >
               <b>Feedback submission</b> – PHP, Laravel, MySQL
             </a>
-          
           </li>
-
-
         </ul>
       </section>
 
