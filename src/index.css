@@ -348,7 +348,8 @@ marquee {
 
 @media (max-width: 480px) {
   .hero-actions {
-    flex-direction: column;
+    flex-direction: row;
+    padding: 12px 13px;
     gap: 12px;
   }
 
