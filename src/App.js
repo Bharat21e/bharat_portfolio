@@ -135,14 +135,14 @@ function App() {
               href="https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn outline"
+              className="btn-outline"
             >
               Contact Me
             </a>
 
             <a
               href="https://wa.me/918817492898"
-              target="_blank"
+              target="_blank" 
               className="btn outline"
             >
               WhatsApp Me
