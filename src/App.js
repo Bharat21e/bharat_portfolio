@@ -10,9 +10,10 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const lenisRef = useRef(null);
   const typedRef = useRef(null);
+  const rafId = useRef(null);
 
   useEffect(() => {
-    /* -------- LENIS -------- */
+    /* ---------------- LENIS ---------------- */
     const lenis = new Lenis({
       duration: 1.2,
       smooth: true,
@@ -21,15 +22,15 @@ function App() {
 
     lenisRef.current = lenis;
 
-    function raf(time) {
+    const raf = (time) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+      rafId.current = requestAnimationFrame(raf);
+    };
+    rafId.current = requestAnimationFrame(raf);
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    /* -------- HERO TEXT -------- */
+    /* ---------------- HERO ANIMATION ---------------- */
     gsap.fromTo(
       ".hero-title",
       { opacity: 0, y: 80 },
@@ -42,7 +43,6 @@ function App() {
       { opacity: 1, y: 0, delay: 0.3, duration: 1 }
     );
 
-    /* -------- HERO IMAGE -------- */
     gsap.fromTo(
       ".hero-image img",
       { opacity: 0, y: 60 },
@@ -55,9 +55,9 @@ function App() {
       }
     );
 
-    /* -------- SKILLS -------- */
+    /* ---------------- SKILLS ---------------- */
     gsap.fromTo(
-      "#skils li",
+      "#skills li",
       { opacity: 0, y: 40 },
       {
         opacity: 1,
@@ -65,15 +65,15 @@ function App() {
         stagger: 0.15,
         duration: 0.8,
         scrollTrigger: {
-          trigger: "#skils",
+          trigger: "#skills",
           start: "top 70%",
         },
       }
     );
 
-    /* -------- PROJECTS -------- */
+    /* ---------------- PROJECTS ---------------- */
     gsap.fromTo(
-      "#project li",
+      "#projects li",
       { opacity: 0, y: 60 },
       {
         opacity: 1,
@@ -81,39 +81,63 @@ function App() {
         stagger: 0.2,
         duration: 0.9,
         scrollTrigger: {
-          trigger: "#project",
+          trigger: "#projects",
           start: "top 70%",
         },
       }
     );
 
-    /* -------- TYPED.JS (FIXED) -------- */
+    /* ---------------- TYPED.JS ---------------- */
     const typed = new Typed(typedRef.current, {
-      strings: ["Full Stack Developer", "React Developer", 'next.js Developer'],
+      strings: [
+        "Full Stack Developer",
+        "React Developer",
+        "Next.js Developer",
+      ],
       typeSpeed: 60,
       backSpeed: 40,
       backDelay: 1000,
       loop: true,
     });
 
+    /* ---------------- CLEANUP ---------------- */
     return () => {
+      cancelAnimationFrame(rafId.current);
       typed.destroy();
       lenis.destroy();
       ScrollTrigger.killAll();
     };
   }, []);
 
-  /* -------- BUTTON SCROLL -------- */
+  /* ---------------- SCROLL BUTTON ---------------- */
   const handleViewProjects = () => {
-    lenisRef.current?.scrollTo("#project", {
+    lenisRef.current?.scrollTo("#projects", {
       offset: -40,
       duration: 1.2,
     });
   };
 
+  /* ---------------- CONTACT HANDLER ---------------- */
+  const handleContact = (e) => {
+    e.preventDefault();
+
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = "mailto:mahajanbharat175@gmail.com";
+    } else {
+      window.open(
+        "https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com",
+        "_blank"
+      );
+    }
+  };
+
   return (
     <div className="container">
-      {/* HERO SECTION */}
+      {/* ---------------- HERO ---------------- */}
       <section className="hero">
         <div className="hero-content">
           <span className="hero-badge">👋 Hello, I’m</span>
@@ -131,23 +155,18 @@ function App() {
               View Projects
             </button>
 
-            <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline"
-            >
+            <a href="#" className="btn-outline" onClick={handleContact}>
               Contact Me
             </a>
 
             <a
               href="https://wa.me/918817492898"
-              target="_blank" 
-              className="btn outline"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
             >
               WhatsApp Me
             </a>
-
           </div>
         </div>
 
@@ -159,60 +178,67 @@ function App() {
         </div>
       </section>
 
-      {/* SKILLS */}
+      {/* ---------------- SKILLS ---------------- */}
       <section id="skils">
         <h2>Skills</h2>
         <ul>
-          <li>HTML, JavaScript, Python, Java, PHP</li>
+          <li>HTML, CSS, JavaScript, Java, Python, PHP</li>
           <li>React.js, Next.js, Express.js, Laravel</li>
           <li>MySQL, MongoDB</li>
           <li>Git, GitHub, CNN, Deep Learning</li>
         </ul>
       </section>
 
-      {/* PROJECTS */}
+      {/* ---------------- PROJECTS ---------------- */}
       <section id="project">
         <h2>Projects</h2>
         <ul>
-          <li className="crops">
+          <li>
             <a
               href="https://crops-dieasese-detection-app.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-link"
             >
               <b>Crop Disease Detection App</b> – React, Node, Python, CNN
             </a>
           </li>
 
           <li>
-            <b>Online Table Booking System</b> – JSP, Servlet, MySQL
-            <marquee>this link is under development</marquee>
+            <b>Online Table Booking System</b>
+            <p className="muted">Under development</p>
           </li>
 
           <li>
-            <b>Online Appointment Booking</b> – Next.js, Clerk, MySQL
-            <marquee>this link is under development</marquee>
+            <b>Online Appointment Booking</b>
+            <p className="muted">Under development</p>
           </li>
 
-          <li className="crops">
+          <li>
             <a
               href="https://github.com/Bharat21e/laravel_feedback_Application"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-link"
             >
-              <b>Feedback submission</b> – PHP, Laravel, MySQL
+              <b>Feedback Submission</b> – PHP, Laravel, MySQL
             </a>
           </li>
         </ul>
       </section>
 
-      {/* FOOTER */}
+      {/* ---------------- FOOTER ---------------- */}
       <footer>
         <h2>Contact</h2>
         <p>Email: mahajanbharat175@gmail.com</p>
-        <p>LinkedIn: linkedin.com/in/bharat-mahajan-49aa2a245</p>
+        <p>
+          LinkedIn:{" "}
+          <a
+            href="https://linkedin.com/in/bharat-mahajan-49aa2a245"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Profile
+          </a>
+        </p>
       </footer>
     </div>
   );
