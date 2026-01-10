@@ -87,7 +87,7 @@ function App() {
       }
     );
 
-    /* ---------------- TYPED.JS ---------------- */
+    /* ---------------- TYPED ---------------- */
     const typed = new Typed(typedRef.current, {
       strings: [
         "Full Stack Developer",
@@ -105,35 +105,26 @@ function App() {
       cancelAnimationFrame(rafId.current);
       typed.destroy();
       lenis.destroy();
-      ScrollTrigger.killAll();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
   /* ---------------- SCROLL BUTTON ---------------- */
   const handleViewProjects = () => {
-    lenisRef.current?.scrollTo("#projects", {
+    lenisRef.current?.scrollTo("#project", {
       offset: -40,
       duration: 1.2,
     });
   };
 
-  /* ---------------- CONTACT HANDLER ---------------- */
-  const handleContact = (e) => {
-    e.preventDefault();
+  /* ---------------- CONTACT ---------------- */
+  const isMobile =
+    typeof navigator !== "undefined" &&
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    const isMobile =
-      typeof navigator !== "undefined" &&
-      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      window.location.href = "mailto:mahajanbharat175@gmail.com";
-    } else {
-      window.open(
-        "https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com",
-        "_blank"
-      );
-    }
-  };
+  const contactLink = isMobile
+    ? "mailto:mahajanbharat175@gmail.com"
+    : "https://mail.google.com/mail/?view=cm&fs=1&to=mahajanbharat175@gmail.com";
 
   return (
     <div className="container">
@@ -155,7 +146,12 @@ function App() {
               View Projects
             </button>
 
-            <a href="#" className="btn-outline" onClick={handleContact}>
+            <a
+              href={contactLink}
+              target={isMobile ? "_self" : "_blank"}
+              rel="noopener noreferrer"
+              className="btn-outline"
+            >
               Contact Me
             </a>
 
